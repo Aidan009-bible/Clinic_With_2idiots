@@ -11,7 +11,7 @@ export function LoginForm() {
 
   return (
     <form
-      className="space-y-4"
+      className="space-y-5"
       onSubmit={(event) => {
         event.preventDefault();
         setError("");
@@ -45,33 +45,33 @@ export function LoginForm() {
       }}
     >
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="username">
+        <label className="mb-2 block text-sm font-semibold text-[#0b2a5b]" htmlFor="username">
           Username
         </label>
         <input
-          className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none ring-0 transition focus:border-slate-500"
+          className="w-full rounded-[14px] border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition placeholder:text-[#8ca0b4] focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
           id="username"
           name="username"
-          placeholder="admin / doctor / reception"
+          placeholder="Enter username"
           required
         />
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="password">
+        <label className="mb-2 block text-sm font-semibold text-[#0b2a5b]" htmlFor="password">
           Password
         </label>
         <div className="relative">
           <input
-            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 pr-14 text-sm text-slate-950 outline-none ring-0 transition focus:border-slate-500"
+            className="w-full rounded-[14px] border border-[#d8e4ec] bg-white px-4 py-3 pr-14 text-sm text-[#071b33] outline-none transition placeholder:text-[#8ca0b4] focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Enter default demo password"
+            placeholder="Enter password"
             required
           />
           <button
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute inset-y-0 right-3 my-auto flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+            className="absolute inset-y-0 right-3 my-auto flex h-9 w-9 items-center justify-center rounded-full text-[#61758a] transition hover:bg-[#f7fafc] hover:text-[#071b33] focus:outline-none focus:ring-4 focus:ring-[#e7f0ff]"
             onClick={(event) => {
               event.preventDefault();
               setShowPassword((value) => !value);
@@ -143,10 +143,10 @@ export function LoginForm() {
         </div>
       </div>
       {error ? (
-        <p className="rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>
+        <p role="alert" className="rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">{error}</p>
       ) : null}
       <button
-        className="w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="min-h-11 w-full rounded-xl bg-[#0b2a5b] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#08234c] focus:outline-none focus:ring-4 focus:ring-[#d8e8ff] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={pending}
         type="submit"
       >

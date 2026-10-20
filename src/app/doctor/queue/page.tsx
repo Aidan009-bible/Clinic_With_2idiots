@@ -5,7 +5,7 @@ import { getClinicSnapshot } from "@/lib/clinic-server";
 
 const navItems = [
   { href: "/doctor/overview", label: "Overview" },
-  { href: "/doctor/queue", label: "Waiting" },
+  { href: "/doctor/queue", label: "Queue" },
   { href: "/doctor/history", label: "Patient History" },
   { href: "/doctor/stock", label: "Medicine Stock" },
 ];
@@ -16,7 +16,7 @@ export default async function DoctorQueuePage() {
   const session = await requireSession(["doctor"]);
   const snapshot = await getClinicSnapshot();
   const visits = snapshot.visits
-    .filter((visit) => visit.status === "Waiting")
+    .filter((visit) => visit.status !== "Completed")
     .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 
   return (
@@ -24,7 +24,7 @@ export default async function DoctorQueuePage() {
       activeHref="/doctor/queue"
       navItems={navItems}
       session={session}
-      subtitle="Patients appear in reception check-in order. Press Next to open one focused consultation."
+      subtitle="Start waiting patients, continue active consultations, and review visits sent to billing."
       title="Doctor dashboard"
     >
       <DoctorWaitingQueue visits={visits} />

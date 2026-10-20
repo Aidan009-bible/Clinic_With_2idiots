@@ -25,8 +25,8 @@ export default async function AdminStockPage({
       activeHref="/admin/stock"
       navItems={navItems}
       session={session}
-      subtitle="Add medicines manually, upload a photo, and manage current stock levels."
-      title="Admin dashboard"
+      subtitle="Monitor medicine readiness, add stock records, and manage inventory details."
+      title="Admin workspace"
     >
       <AdminActions initialLowStockOnly={view === "low"} medicines={snapshot.medicines} />
     </DashboardShell>

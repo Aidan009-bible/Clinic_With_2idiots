@@ -1,0 +1,89 @@
+/* Admin-only presentation. Existing inventory and patient operations are unchanged. */
+.admin-workspace :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #2f80ed;
+  outline-offset: 3px;
+}
+
+.admin-workspace [data-ui="page-header"] {
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+}
+.admin-workspace [data-ui="page-header"] h2 { font-size: 1.875rem; }
+.admin-workspace [data-ui="page-header"] > p:last-child { margin-top: 8px; line-height: 1.6; }
+
+.admin-workspace [data-ui="admin-summary"] > a {
+  padding: 20px;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.admin-workspace [data-ui="admin-summary"] > a:hover {
+  transform: none;
+  box-shadow: 0 3px 12px rgb(8 42 96 / 7%);
+}
+.admin-workspace [data-ui="admin-summary"] > a > div:first-child { float: right; margin-left: 12px; }
+.admin-workspace [data-ui="admin-summary"] > a > p:first-of-type { margin-top: 0; }
+.admin-workspace [data-ui="admin-summary"] > a > div:last-child { clear: both; padding-top: 4px; }
+.admin-workspace [data-ui="admin-activity"] article { border-radius: 20px; }
+.admin-workspace [data-ui="admin-workflow"] h3 { font-size: 1.125rem; line-height: 1.5; }
+.admin-workspace [data-ui="admin-workflow"] article { border-radius: 20px; }
+.admin-workspace [data-ui="admin-workflow"] > article:first-child > div > div {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+}
+.admin-workspace [data-ui="admin-low-stock"] table { min-width: 520px; font-size: 14px; }
+.admin-workspace [data-ui="admin-low-stock"] :is(th, td) { padding-left: 16px; padding-right: 16px; }
+.admin-workspace [data-ui="admin-low-stock"] td:nth-child(2) { white-space: nowrap; }
+.admin-workspace [data-ui="admin-low-stock"] td:last-child span { white-space: nowrap; }
+
+.admin-stock-entry input:not([type="file"]) { width: 100%; min-width: 0; border-radius: 12px; }
+.admin-stock-entry input[type="file"] { font-size: 12px; }
+.admin-stock-entry input[type="file"]::file-selector-button { font-size: 12px; }
+.admin-workspace [data-ui="medicine-reference"] { border-radius: 20px; }
+.admin-workspace [data-ui="medicine-reference"] table { width: 100%; min-width: 880px; }
+.admin-workspace [data-ui="medicine-reference"] tbody tr { vertical-align: middle; }
+.admin-workspace [data-ui="medicine-reference"] :is(th, td) { padding-top: 14px; padding-bottom: 14px; }
+.admin-workspace [data-ui="medicine-reference"] th:nth-child(3),
+.admin-workspace [data-ui="medicine-reference"] th:nth-child(5),
+.admin-workspace [data-ui="medicine-reference"] :is([data-ui="stock-value"], [data-ui="price-value"]) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.admin-workspace [data-ui="medicine-reference"] td:nth-child(2) { min-width: 160px; }
+.admin-workspace [data-ui="medicine-reference"] td:last-child { min-width: 150px; }
+.admin-workspace [data-ui="medicine-reference"] td:last-child button { min-height: 36px; }
+.admin-workspace [data-ui="medicine-reference"] tr[data-editing="true"] { background: #e7f0ff; }
+.admin-workspace [data-ui="medicine-reference"] img { object-fit: contain; }
+.admin-workspace [data-ui="medicine-editor"] {
+  border-color: #cfe0ff;
+  border-radius: 16px;
+  background: #f4f8ff;
+}
+.admin-workspace [data-ui="medicine-editor"] button { min-height: 40px; border-radius: 12px; }
+.admin-workspace [data-ui="medicine-editor"] button:first-child { font-size: 13px; }
+
+.admin-workspace [data-ui="patient-directory"] { border-radius: 20px; }
+.admin-workspace [data-ui="patient-search"] { border: 0; border-radius: 0; padding: 0; background: transparent; }
+.admin-workspace [data-ui="patient-directory"] td { vertical-align: middle; }
+.admin-workspace [data-ui="patient-directory"] td:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.admin-workspace [data-ui="patient-directory"] td:nth-child(4) span.rounded-full {
+  border: 1px solid #d8e4ec;
+  background: #f7fafc;
+  color: #61758a;
+  font-weight: 500;
+}
+.admin-workspace [data-ui="patient-directory"] > div:first-child > div:first-child > div:last-child {
+  width: 540px;
+  flex-shrink: 0;
+}
+.admin-workspace [data-ui="patient-directory"] > div:first-child > div:first-child > div:last-child p:first-child {
+  min-height: 32px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-workspace * { transition-duration: 0s; scroll-behavior: auto; }
+}

@@ -5,7 +5,7 @@ import { getClinicSnapshot } from "@/lib/clinic-server";
 
 const navItems = [
   { href: "/doctor/overview", label: "Overview" },
-  { href: "/doctor/queue", label: "Waiting" },
+  { href: "/doctor/queue", label: "Queue" },
   { href: "/doctor/history", label: "Patient History" },
   { href: "/doctor/stock", label: "Medicine Stock" },
 ];

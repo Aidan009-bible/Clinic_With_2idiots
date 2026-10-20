@@ -24,31 +24,34 @@ export default async function ReceptionQueuePage() {
       activeHref="/reception/queue"
       navItems={navItems}
       session={session}
-      subtitle="See today's patient order and whether each patient is waiting or with the doctor."
+      subtitle="Follow the active patient order and see who is waiting or with the doctor."
       title="Reception dashboard"
     >
-      <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm shadow-slate-200/60">
-        <div className="border-b border-slate-200 px-6 py-5">
-          <p className="text-sm font-medium text-slate-500">Live queue</p>
-          <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">
+      <section className="overflow-hidden rounded-[20px] border border-[#d8e4ec] bg-white shadow-sm">
+        <div className="border-b border-[#d8e4ec] px-6 py-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f80ed]">Live queue</p>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[#071b33]">
             {visits.length} active patient{visits.length === 1 ? "" : "s"}
           </h3>
+          <p className="mt-2 text-sm text-[#61758a]">Active visits across all check-in dates, listed in check-in order.</p>
         </div>
-        <div className="divide-y divide-slate-200">
+        {visits.length ? <div aria-hidden="true" className="reception-queue-row bg-[#f7fafc] px-6 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#61758a]">
+          <span>No.</span><span>Patient</span><span>Checked in</span><span>Status</span>
+        </div> : null}
+        <div className="divide-y divide-[#e7eef3]">
           {visits.map((visit, index) => (
-            <article className="flex items-center gap-4 px-6 py-5" key={visit.id}>
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-bold text-slate-700">
+            <article className="reception-queue-row px-6 py-4 transition-colors hover:bg-[#fbfdff]" key={visit.id}>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#d8e4ec] bg-[#f7fafc] text-sm font-semibold tabular-nums text-[#0b2a5b]">
                 {index + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold text-slate-950">{visit.patientName}</p>
-                <p className="mt-1 text-sm text-slate-500">
-                  {visit.patientCode} • {new Date(visit.createdAt).toLocaleString()}
-                </p>
+                <p className="break-words font-semibold text-[#071b33]">{visit.patientName}</p>
+                <p className="mt-1 text-xs font-medium text-[#2f80ed]">{visit.patientCode}</p>
               </div>
-              <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+              <p className="text-sm tabular-nums text-[#61758a]">{new Date(visit.createdAt).toLocaleString()}</p>
+              <span className={`justify-self-start rounded-full px-3 py-1.5 text-xs font-semibold ${
                 visit.status === "In Consultation"
-                  ? "bg-emerald-100 text-emerald-800"
+                  ? "bg-[#e7f0ff] text-[#0b2a5b]"
                   : "bg-amber-100 text-amber-800"
               }`}>
                 {visit.status === "In Consultation" ? "With doctor" : "Waiting"}
@@ -56,7 +59,13 @@ export default async function ReceptionQueuePage() {
             </article>
           ))}
           {!visits.length ? (
-            <p className="px-6 py-10 text-center text-sm text-slate-500">The queue is empty.</p>
+            <div className="px-6 py-12 text-center">
+              <span aria-hidden="true" className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#e7f0ff] text-[#0b2a5b]">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="9" /><path strokeLinecap="round" d="M12 7v5l3 2" /></svg>
+              </span>
+              <p className="mt-4 text-sm font-semibold text-[#071b33]">No patients in the active queue</p>
+              <p className="mt-1 text-sm text-[#61758a]">Patients appear here after check-in from Patients.</p>
+            </div>
           ) : null}
         </div>
       </section>

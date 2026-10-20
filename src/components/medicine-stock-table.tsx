@@ -145,28 +145,30 @@ export function MedicineStockTable({
   }
 
   return (
-    <section className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/60">
+    <section data-ui="medicine-reference" className="rounded-[24px] border border-[#d8e4ec] bg-white p-5 shadow-sm">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-sm font-medium text-slate-500">Medicine stock</p>
-          <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{title}</h3>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#2f80ed]">Medicine stock</p>
+          <h3 className="mt-1 text-2xl font-semibold tracking-tight text-[#071b33]">{title}</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-[#61758a]">{description}</p>
         </div>
         <div className="w-full max-w-sm">
-          <label className="mb-2 block text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+          <label htmlFor="medicine-search" className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-[#61758a]">
             Search medicine
           </label>
           <input
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+            id="medicine-search"
+            className="w-full rounded-2xl border border-[#d8e4ec] px-4 py-3 text-sm text-[#071b33] outline-none transition placeholder:text-[#8ca0b4] focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search by name or unit"
             value={query}
           />
           <button
+            aria-pressed={lowStockOnly}
             className={`mt-2 rounded-xl border px-3 py-2 text-xs font-semibold transition ${
               lowStockOnly
                 ? "border-rose-200 bg-rose-50 text-rose-700"
-                : "border-slate-300 bg-white text-slate-600"
+                : "border-[#d8e4ec] bg-white text-[#61758a] hover:bg-[#f7fafc]"
             }`}
             onClick={() => setLowStockOnly((current) => !current)}
             type="button"
@@ -177,17 +179,17 @@ export function MedicineStockTable({
       </div>
 
       {editable && editingId && draft ? (
-        <div className="mt-5 rounded-[20px] border border-slate-200 bg-slate-50 p-5">
+        <div data-ui="medicine-editor" className="mt-5 rounded-[20px] border border-[#d8e4ec] bg-[#f7fafc] p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-sm font-medium text-slate-500">Editing medicine</p>
-              <h4 className="mt-1 text-xl font-semibold tracking-tight text-slate-950">
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#2f80ed]">Editing medicine</p>
+              <h4 className="mt-1 text-xl font-semibold tracking-tight text-[#071b33]">
                 {draft.name || "Medicine details"}
               </h4>
             </div>
             <div className="flex flex-wrap gap-2">
               <button
-                className="rounded-xl bg-slate-950 px-3 py-2 text-xs font-semibold text-white disabled:opacity-60"
+                className="rounded-full bg-[#0b2a5b] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#08234c] disabled:opacity-60"
                 disabled={loadingId === editingId}
                 onClick={() => saveMedicine(editingId)}
                 type="button"
@@ -195,7 +197,7 @@ export function MedicineStockTable({
                 {loadingId === editingId ? "Saving..." : "Save changes"}
               </button>
               <button
-                className="rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700"
+                className="rounded-full border border-[#d8e4ec] bg-white px-4 py-2 text-xs font-semibold text-[#61758a] hover:bg-[#f7fafc]"
                 onClick={() => {
                   setEditingId(null);
                   setDraft(null);
@@ -208,8 +210,8 @@ export function MedicineStockTable({
           </div>
 
           <div className="mt-5 grid gap-4 xl:grid-cols-[220px_minmax(0,1fr)]">
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-              <div className="h-36 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+            <div className="rounded-2xl border border-[#d8e4ec] bg-white p-4">
+              <div className="h-36 overflow-hidden rounded-2xl border border-[#d8e4ec] bg-[#f7fafc]">
                 {draft.photoDataUrl ? (
                   <img
                     alt={draft.name || "Medicine"}
@@ -217,14 +219,14 @@ export function MedicineStockTable({
                     src={draft.photoDataUrl}
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-sm text-slate-400">
+                  <div className="flex h-full items-center justify-center text-sm text-[#8ca0b4]">
                     No photo
                   </div>
                 )}
               </div>
               <input
                 accept="image/*"
-                className="mt-4 block w-full text-xs text-slate-500 file:mr-3 file:rounded-xl file:border-0 file:bg-slate-950 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white"
+                className="mt-4 block w-full text-xs text-[#61758a] file:mr-3 file:rounded-xl file:border-0 file:bg-[#0b2a5b] file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white"
                 onChange={async (event) => {
                   const file = event.target.files?.[0];
 
@@ -261,10 +263,10 @@ export function MedicineStockTable({
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <label className="grid gap-2 text-sm text-slate-600">
-                <span className="font-medium text-slate-700">Medicine name</span>
+              <label className="grid gap-2 text-sm text-[#61758a]">
+                <span className="font-medium text-[#071b33]">Medicine name</span>
                 <input
-                  className="rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+                  className="rounded-2xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
                   onChange={(event) =>
                     setDraft((current) =>
                       current ? { ...current, name: event.target.value } : current,
@@ -273,10 +275,10 @@ export function MedicineStockTable({
                   value={draft.name}
                 />
               </label>
-              <label className="grid gap-2 text-sm text-slate-600">
-                <span className="font-medium text-slate-700">Stock</span>
+              <label className="grid gap-2 text-sm text-[#61758a]">
+                <span className="font-medium text-[#071b33]">Stock</span>
                 <input
-                  className="rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+                  className="rounded-2xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
                   min="0"
                   onChange={(event) =>
                     setDraft((current) =>
@@ -287,10 +289,10 @@ export function MedicineStockTable({
                   value={draft.stock}
                 />
               </label>
-              <label className="grid gap-2 text-sm text-slate-600">
-                <span className="font-medium text-slate-700">Unit</span>
+              <label className="grid gap-2 text-sm text-[#61758a]">
+                <span className="font-medium text-[#071b33]">Unit</span>
                 <input
-                  className="rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+                  className="rounded-2xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
                   onChange={(event) =>
                     setDraft((current) =>
                       current ? { ...current, unit: event.target.value } : current,
@@ -299,10 +301,10 @@ export function MedicineStockTable({
                   value={draft.unit}
                 />
               </label>
-              <label className="grid gap-2 text-sm text-slate-600">
-                <span className="font-medium text-slate-700">Price</span>
+              <label className="grid gap-2 text-sm text-[#61758a]">
+                <span className="font-medium text-[#071b33]">Price</span>
                 <input
-                  className="rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+                  className="rounded-2xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
                   min="0"
                   onChange={(event) =>
                     setDraft((current) =>
@@ -313,10 +315,10 @@ export function MedicineStockTable({
                   value={draft.salePrice}
                 />
               </label>
-              <label className="grid gap-2 text-sm text-slate-600 md:col-span-2">
-                <span className="font-medium text-slate-700">Expiry</span>
+              <label className="grid gap-2 text-sm text-[#61758a] md:col-span-2">
+                <span className="font-medium text-[#071b33]">Expiry</span>
                 <input
-                  className="rounded-2xl border border-slate-300 px-4 py-3 text-sm"
+                  className="rounded-2xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm text-[#071b33] outline-none transition focus:border-[#2f80ed] focus:ring-4 focus:ring-[#e7f0ff]"
                   onChange={(event) =>
                     setDraft((current) =>
                       current ? { ...current, expiry: event.target.value } : current,
@@ -331,9 +333,9 @@ export function MedicineStockTable({
         </div>
       ) : null}
 
-      <div className="mt-5 overflow-x-auto rounded-[20px] border border-slate-200">
+      <div className="mt-5 overflow-x-auto rounded-[20px] border border-[#d8e4ec]">
         <table className="min-w-full bg-white text-sm">
-          <thead className="bg-slate-100 text-left text-slate-700">
+          <thead className="bg-[#f7fafc] text-left text-xs uppercase tracking-[0.1em] text-[#61758a]">
             <tr>
               <th className="px-4 py-3 font-semibold">Photo</th>
               <th className="px-4 py-3 font-semibold">Medicine</th>
@@ -350,9 +352,9 @@ export function MedicineStockTable({
               const isEditing = editingId === medicine.id && draft;
 
               return (
-                <tr key={medicine.id} className="border-t border-slate-200 align-top text-slate-700">
+                <tr data-editing={Boolean(isEditing)} key={medicine.id} className="border-t border-[#d8e4ec] align-top text-[#61758a] transition hover:bg-[#f7fafc]">
                   <td className="px-4 py-3">
-                    <div className="h-14 w-14 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+                    <div className="h-14 w-14 overflow-hidden rounded-2xl border border-[#d8e4ec] bg-[#f7fafc]">
                       {medicine.photoDataUrl ? (
                         <img
                           alt={medicine.name}
@@ -360,7 +362,7 @@ export function MedicineStockTable({
                           src={medicine.photoDataUrl}
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-[11px] text-slate-400">
+                        <div className="flex h-full items-center justify-center text-[11px] text-[#8ca0b4]">
                           No photo
                         </div>
                       )}
@@ -368,13 +370,13 @@ export function MedicineStockTable({
                   </td>
                   <td className="px-4 py-3">
                     <div>
-                      <p className="font-medium text-slate-950">{medicine.name}</p>
-                      <p className="mt-1 text-xs text-slate-500">ID: {medicine.id}</p>
+                      <p className="font-semibold text-[#071b33]">{medicine.name}</p>
+                      <p className="mt-1 text-xs text-[#61758a]">ID: {medicine.id}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-3">{medicine.stock.toLocaleString()}</td>
+                  <td data-ui="stock-value" className="px-4 py-3 font-semibold text-[#071b33]">{medicine.stock.toLocaleString()}</td>
                   <td className="px-4 py-3">{medicine.unit}</td>
-                  <td className="px-4 py-3">{formatMoney(medicine.salePrice)}</td>
+                  <td data-ui="price-value" className="px-4 py-3">{formatMoney(medicine.salePrice)}</td>
                   <td className="px-4 py-3">{medicine.expiry}</td>
                   <td className="px-4 py-3">
                     <span
@@ -393,8 +395,8 @@ export function MedicineStockTable({
                         <button
                           className={`rounded-xl px-3 py-2 text-xs font-semibold ${
                             isEditing
-                              ? "bg-slate-200 text-slate-900"
-                              : "bg-slate-950 text-white"
+                              ? "bg-[#e7f0ff] text-[#0b2a5b]"
+                              : "bg-[#0b2a5b] text-white hover:bg-[#08234c]"
                           }`}
                           onClick={() => {
                             setError("");
@@ -406,7 +408,7 @@ export function MedicineStockTable({
                           {isEditing ? "Editing" : "Edit"}
                         </button>
                         <button
-                          className="rounded-xl border border-rose-200 px-3 py-2 text-xs font-semibold text-rose-700 disabled:opacity-60"
+                          className="rounded-xl border border-rose-200 bg-white px-3 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-50 disabled:opacity-60"
                           disabled={loadingId === medicine.id}
                           onClick={() => removeMedicine(medicine.id)}
                           type="button"
@@ -422,10 +424,17 @@ export function MedicineStockTable({
             {!filteredMedicines.length ? (
               <tr>
                 <td
-                  className="px-4 py-5 text-sm text-slate-500"
+                  className="px-4 py-12 text-center text-sm text-[#61758a]"
                   colSpan={editable ? 8 : 7}
                 >
-                  No medicines found.
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e7f0ff] text-[#0b2a5b]">
+                    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 4.5a4.95 4.95 0 0 1 7 7l-4 4a4.95 4.95 0 0 1-7-7l4-4Z" />
+                      <path strokeLinecap="round" d="m8 12 4 4" />
+                    </svg>
+                  </div>
+                  <p className="mt-4 font-semibold text-[#071b33]">No medicines found</p>
+                  <p className="mt-1 text-[#61758a]">Try another search term or clear the low-stock filter.</p>
                 </td>
               </tr>
             ) : null}
@@ -434,7 +443,7 @@ export function MedicineStockTable({
       </div>
 
       {error ? (
-        <p className="mt-4 rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>
+        <p className="mt-4 rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">{error}</p>
       ) : null}
     </section>
   );

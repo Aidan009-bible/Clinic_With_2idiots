@@ -1,0 +1,161 @@
+/* Doctor-only presentation. Shared reception and admin screens keep their styles. */
+.doctor-workspace :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #2f80ed;
+  outline-offset: 3px;
+}
+
+.doctor-workspace :is(input, select, textarea) {
+  min-width: 0;
+}
+
+.doctor-workspace textarea {
+  line-height: 1.65;
+}
+
+.doctor-workspace [data-ui="page-header"] {
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+}
+
+.doctor-workspace [data-ui="page-header"] h2 {
+  font-size: 1.875rem;
+}
+
+.doctor-workspace [data-ui="page-header"] > p:last-child {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.doctor-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.doctor-overview :is(article, [data-ui="activity"]) {
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+}
+
+.doctor-overview [data-ui="activity"] h3,
+.doctor-overview [data-ui="workflow"] h3 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.doctor-overview [data-ui="activity"] > div:last-child > article {
+  padding: 16px;
+}
+
+.doctor-overview [data-ui="activity"] article :is(.shadow-sm) {
+  box-shadow: none;
+}
+
+.doctor-overview [data-ui="currency-unit"] { font-size: 10px; }
+
+.doctor-overview [data-ui="activity"] article > div:nth-child(2) > div {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.doctor-overview [data-ui="workflow"] article > div > div {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+}
+
+.doctor-overview [data-ui="workflow"] a {
+  justify-content: center;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] {
+  border-radius: 20px;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] table {
+  width: 100%;
+  min-width: 780px;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] tbody tr {
+  vertical-align: middle;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] :is(th, td) {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] th:nth-child(3),
+.doctor-workspace [data-ui="medicine-reference"] th:nth-child(5),
+.doctor-workspace [data-ui="medicine-reference"] :is([data-ui="stock-value"], [data-ui="price-value"]) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.doctor-workspace [data-ui="medicine-reference"] td:nth-child(2) {
+  min-width: 180px;
+}
+
+@media (min-width: 1280px) {
+  .doctor-overview [data-ui="workflow"] {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .doctor-workspace [data-ui="page-header"] {
+    padding: 20px;
+  }
+
+  .doctor-workspace [data-ui="page-header"] h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .doctor-workspace [data-ui="sidebar"] {
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+  }
+
+  .doctor-workspace [data-ui="account"] {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 6px 10px;
+  }
+
+  .doctor-workspace [data-ui="account"] p { margin-top: 0; }
+
+  .doctor-workspace [data-ui="sidebar"] nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .doctor-workspace [data-ui="sidebar"] nav > p { display: none; }
+
+  .doctor-workspace [data-ui="sidebar"] nav a {
+    min-height: 44px;
+    padding: 8px 10px;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .doctor-workspace [data-ui="sidebar-footer"] { padding-top: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doctor-workspace * {
+    scroll-behavior: auto;
+    transition-duration: 0s;
+  }
+}

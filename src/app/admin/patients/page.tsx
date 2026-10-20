@@ -20,8 +20,8 @@ export default async function AdminPatientsPage() {
       activeHref="/admin/patients"
       navItems={navItems}
       session={session}
-      subtitle="Search and review every registered patient record."
-      title="Admin dashboard"
+      subtitle="Search, scan, and review registered clinic patient records."
+      title="Admin workspace"
     >
       <PatientDirectory patients={snapshot.patients} />
     </DashboardShell>

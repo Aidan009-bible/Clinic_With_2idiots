@@ -10,7 +10,7 @@ export function LogoutButton({ compact = false }: { compact?: boolean }) {
   return (
     <button
       aria-label="Logout"
-      className={`flex min-h-11 items-center gap-3 rounded-xl border border-white/10 bg-white/5 text-sm font-medium text-white transition hover:bg-white/10 disabled:opacity-60 ${
+      className={`flex min-h-11 items-center gap-3 rounded-xl border border-[#d8e4ec] bg-white text-sm font-medium text-[#61758a] transition hover:bg-[#fff1f2] hover:text-rose-700 disabled:opacity-60 ${
         compact ? "lg:justify-center lg:px-0" : "px-3"
       }`}
       disabled={pending}

@@ -22,7 +22,7 @@ export default async function ReceptionPatientsPage() {
       activeHref="/reception/patients"
       navItems={navItems}
       session={session}
-      subtitle="Choose an old patient or register a new patient, then add the visit directly to the queue."
+      subtitle="Choose an existing patient or register a new patient, then add the visit directly to the queue."
       title="Reception dashboard"
     >
       <ReceptionPatientForm patients={snapshot.patients} />

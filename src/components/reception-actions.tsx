@@ -31,7 +31,7 @@ export function ReceptionPatientForm({ patients }: { patients: Patient[] }) {
 
   return (
     <form
-      className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/60"
+      className="reception-checkin rounded-[20px] border border-[#d8e4ec] bg-white p-6 shadow-sm"
       onSubmit={async (event) => {
         event.preventDefault();
         setError("");
@@ -93,25 +93,27 @@ export function ReceptionPatientForm({ patients }: { patients: Patient[] }) {
         }
       }}
     >
-      <p className="text-sm font-medium text-slate-500">Patient check-in</p>
-      <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">
-        Add patient to today&apos;s queue
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f80ed]">Patient check-in</p>
+      <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[#071b33]">
+        Add patient to queue
       </h3>
-      <div className="mt-5 grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5">
+      <p className="mt-2 text-sm text-[#61758a]">Choose a returning patient or register someone new, then record the reason for this visit.</p>
+      <div className="mt-5 grid max-w-lg grid-cols-2 gap-1 rounded-xl border border-[#d8e4ec] bg-[#f7fafc] p-1">
         {(["old", "new"] as const).map((type) => (
           <button
-            className={`rounded-xl px-4 py-3 text-sm font-semibold transition ${
-              patientType === type ? "bg-white text-slate-950 shadow-sm" : "text-slate-500"
+            aria-pressed={patientType === type}
+            className={`min-h-11 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+              patientType === type ? "bg-[#0b2a5b] text-white shadow-sm" : "text-[#61758a] hover:bg-[#e7f0ff]"
             }`}
             key={type}
             onClick={() => setPatientType(type)}
             type="button"
           >
-            {type === "old" ? "Old patient" : "New patient"}
+            {type === "old" ? "Existing patient" : "New patient"}
           </button>
         ))}
       </div>
-      <div className="mt-5 grid gap-3">
+      <div className="mt-6 grid gap-4">
         {patientType === "old" ? (
           <div className="overflow-hidden rounded-2xl border border-slate-200">
             <input name="patientId" type="hidden" value={selectedPatientId} />
@@ -148,7 +150,7 @@ export function ReceptionPatientForm({ patients }: { patients: Patient[] }) {
 
                     return (
                       <tr
-                        className={`cursor-pointer transition ${selected ? "bg-sky-100" : "hover:bg-sky-50"}`}
+                        className={`cursor-pointer transition ${selected ? "bg-[#e7f0ff]" : "hover:bg-[#f7fafc]"}`}
                         key={patient.id}
                         onClick={() => setSelectedPatientId(patient.id)}
                       >
@@ -183,20 +185,33 @@ export function ReceptionPatientForm({ patients }: { patients: Patient[] }) {
             </div>
           </div>
         ) : (
-          <>
-            <input className="rounded-2xl border border-slate-300 px-4 py-3 text-sm" name="name" placeholder="Patient name" required />
-            <div className="grid gap-3 md:grid-cols-2">
-              <input className="rounded-2xl border border-slate-300 px-4 py-3 text-sm" min="1" name="age" placeholder="Age" required type="number" />
-              <input className="rounded-2xl border border-slate-300 px-4 py-3 text-sm" name="phone" placeholder="Phone number" required />
+          <div className="rounded-2xl border border-[#d8e4ec] bg-[#fbfdff] p-5">
+            <h4 className="mb-4 text-base font-semibold text-[#071b33]">Patient details</h4>
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_120px_minmax(0,1fr)]">
+              <label className="grid gap-2 text-sm font-medium text-[#071b33]">
+                Patient name <span className="sr-only">(required)</span>
+                <input className="rounded-xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm" name="name" placeholder="Full name" required />
+              </label>
+              <label className="grid gap-2 text-sm font-medium text-[#071b33]">
+                Age <span className="sr-only">(required)</span>
+                <input className="rounded-xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm" min="1" name="age" placeholder="Years" required type="number" />
+              </label>
+              <label className="grid gap-2 text-sm font-medium text-[#071b33]">
+                Phone number <span className="sr-only">(required)</span>
+                <input className="rounded-xl border border-[#d8e4ec] bg-white px-4 py-3 text-sm" name="phone" placeholder="Contact number" required />
+              </label>
             </div>
-          </>
+          </div>
         )}
-        <textarea className="min-h-28 rounded-2xl border border-slate-300 px-4 py-3 text-sm" name="symptoms" placeholder="Symptoms or reason for visit (optional)" />
+        <label className="mt-1 grid gap-2 border-t border-[#e7eef3] pt-5">
+          <span className="text-sm font-semibold text-[#071b33]">Reason for visit <span className="font-normal text-[#61758a]">(optional)</span></span>
+          <textarea className="min-h-24 rounded-xl border border-[#d8e4ec] px-4 py-3 text-sm" name="symptoms" placeholder="Symptoms or reason for visit" />
+        </label>
       </div>
-      <button className="mt-4 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white disabled:opacity-60" disabled={loading} type="submit">
-        {loading ? "Adding to queue..." : "Add to waiting queue"}
+      <button className="mt-5 min-h-11 rounded-xl bg-[#0b2a5b] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#071b33] disabled:opacity-60" disabled={loading} type="submit">
+        {loading ? "Adding to queue..." : "Add to queue"}
       </button>
-      {error ? <p className="mt-4 rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p> : null}
+      {error ? <p role="alert" className="mt-4 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p> : null}
     </form>
   );
 }
@@ -277,44 +292,66 @@ export function ReceptionBilling({
 
   return (
     <div className="grid gap-4">
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f80ed]">Billing counter</p>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[#071b33]">Review and issue bill slips</h3>
+          <p className="mt-2 text-sm text-[#61758a]">Check the prescription and final charges before completing each visit.</p>
+        </div>
+        <span className="shrink-0 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800">
+          {visits.length} ready for billing
+        </span>
+      </div>
       {visits.map((visit) => (
-        <div key={visit.id} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/60">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-medium text-slate-500">Bill slip</p>
-              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">
+        <article key={visit.id} className="reception-bill grid gap-5 rounded-[20px] border border-[#d8e4ec] bg-white p-5 shadow-sm xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)_260px]">
+          <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#61758a]">Patient / visit</p>
+              <h4 className="mt-3 break-words text-lg font-semibold tracking-tight text-[#071b33]">
                 {visit.patientName}
-              </h3>
-              <p className="mt-1 text-sm text-slate-500">
-                {visit.patientCode} • {formatDateTime(visit.createdAt)}
+              </h4>
+              <p className="mt-1 text-sm font-medium text-[#2f80ed]">{visit.patientCode}</p>
+              <p className="mt-2 text-xs leading-5 text-[#61758a]">
+                Checked in {formatDateTime(visit.createdAt)}
               </p>
-            </div>
-            <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-900">
-              {visit.status}
+            <span className="mt-3 inline-flex rounded-full bg-emerald-100 px-3 py-1.5 text-xs font-semibold text-emerald-800">
+              Ready for billing
             </span>
           </div>
 
-          <div className="mt-5 rounded-[24px] border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm font-semibold text-slate-900">Consultation fee</p>
-            <p className="mt-1 text-sm text-slate-600">{visit.consultationFee.toLocaleString()} MMK</p>
-            <p className="mt-4 text-sm font-semibold text-slate-900">Medicines</p>
-            <div className="mt-2 grid gap-2">
+          <div className="min-w-0 xl:border-l xl:border-[#e7eef3] xl:pl-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#61758a]">Prescription</p>
+            <div className="mt-3 divide-y divide-[#e7eef3]">
               {visit.prescription.map((item) => (
-                <div key={`${visit.id}-${item.medicineId}`} className="flex items-center justify-between gap-3 text-sm text-slate-600">
-                  <span>{item.medicineName} • {item.quantity} • {item.dosage}</span>
-                  <span>{item.lineTotal.toLocaleString()} MMK</span>
+                <div key={`${visit.id}-${item.medicineId}`} className="flex items-start justify-between gap-3 py-3 first:pt-0 text-sm">
+                  <div className="min-w-0 break-words">
+                    <p className="font-medium text-[#071b33]">{item.medicineName}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#61758a]">Quantity {item.quantity}{item.dosage ? ` · ${item.dosage}` : ""}</p>
+                  </div>
+                  <span className="shrink-0 text-right tabular-nums text-[#071b33]">{item.lineTotal.toLocaleString()} MMK</span>
                 </div>
               ))}
-              {!visit.prescription.length ? <p className="text-sm text-slate-500">No medicines.</p> : null}
-            </div>
-            <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-4">
-              <span className="text-base font-semibold text-slate-950">Total</span>
-              <span className="text-base font-semibold text-slate-950">{visit.totalCharge.toLocaleString()} MMK</span>
+              {!visit.prescription.length ? <p className="rounded-xl bg-[#f7fafc] p-3 text-sm text-[#61758a]">No medicines prescribed.</p> : null}
             </div>
           </div>
 
+          <div className="min-w-0 rounded-xl border border-[#dcebe2] bg-[#f2fbf6] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#61758a]">Billing summary</p>
+            <div className="mt-4 grid gap-3 text-xs tabular-nums">
+              <div className="flex items-baseline justify-between gap-2 text-[#61758a]">
+                <span>Consultation</span>
+                <span className="whitespace-nowrap text-[#071b33]">{visit.consultationFee.toLocaleString()} MMK</span>
+              </div>
+              <div className="flex items-baseline justify-between gap-2 text-[#61758a]">
+                <span>Medicine</span>
+                <span className="whitespace-nowrap text-[#071b33]">{visit.medicineCharge.toLocaleString()} MMK</span>
+              </div>
+              <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-[#cce8d8] pt-3 text-[#071b33]">
+                <span className="text-sm font-semibold">Total</span>
+                <span className="text-lg font-semibold">{visit.totalCharge.toLocaleString()} MMK</span>
+              </div>
+            </div>
           <button
-            className="mt-4 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white disabled:opacity-60"
+            className="mt-5 min-h-11 w-full rounded-xl bg-[#0b2a5b] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#071b33] disabled:opacity-60"
             disabled={loadingId === visit.id}
             onClick={async () => {
               setError("");
@@ -344,16 +381,22 @@ export function ReceptionBilling({
             }}
             type="button"
           >
-            {loadingId === visit.id ? "Processing..." : "Issue slip and reduce stock"}
+            {loadingId === visit.id ? "Processing..." : "Issue bill slip"}
           </button>
-        </div>
+            <p className="mt-3 text-xs leading-5 text-[#61758a]">Issuing the slip completes the visit and updates medicine stock.</p>
+          </div>
+        </article>
       ))}
       {!visits.length ? (
-        <p className="rounded-[28px] border border-slate-200 bg-white px-6 py-5 text-sm text-slate-600 shadow-sm shadow-slate-200/60">
-          No visits are ready for billing right now.
-        </p>
+        <div className="rounded-[20px] border border-[#d8e4ec] bg-white px-6 py-12 text-center shadow-sm">
+          <span aria-hidden="true" className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="m7 12 3 3 7-7M5 4h14v17l-3-2-4 2-4-2-3 2V4Z" /></svg>
+          </span>
+          <p className="mt-4 text-sm font-semibold text-[#071b33]">No visits ready for billing</p>
+          <p className="mt-1 text-sm text-[#61758a]">Visits appear here when the doctor sends them to reception.</p>
+        </div>
       ) : null}
-      {error ? <p className="rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p> : null}
+      {error ? <p role="alert" className="rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p> : null}
     </div>
   );
 }

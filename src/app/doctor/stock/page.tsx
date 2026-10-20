@@ -5,7 +5,7 @@ import { getClinicSnapshot } from "@/lib/clinic-server";
 
 const navItems = [
   { href: "/doctor/overview", label: "Overview" },
-  { href: "/doctor/queue", label: "Waiting" },
+  { href: "/doctor/queue", label: "Queue" },
   { href: "/doctor/history", label: "Patient History" },
   { href: "/doctor/stock", label: "Medicine Stock" },
 ];
@@ -21,13 +21,13 @@ export default async function DoctorStockPage() {
       activeHref="/doctor/stock"
       navItems={navItems}
       session={session}
-      subtitle="Quick stock reference while prescribing medicine to patients."
+      subtitle="Check medicine availability and pricing while preparing prescriptions."
       title="Doctor dashboard"
     >
       <MedicineStockTable
-        description="Doctor can view live stock while prescribing, but editing stays restricted to admin."
+        description="Check availability, unit prices, and expiry dates while preparing prescriptions."
         medicines={snapshot.medicines}
-        title="Medicine stock table"
+        title="Medicine reference"
       />
     </DashboardShell>
   );

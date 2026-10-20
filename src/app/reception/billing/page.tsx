@@ -23,7 +23,7 @@ export default async function ReceptionBillingPage() {
       activeHref="/reception/billing"
       navItems={navItems}
       session={session}
-      subtitle="Create the bill slip after doctor fees and medicine charges are ready, then stock reduces automatically."
+      subtitle="Review consultation and medicine charges, then issue the bill slip to complete the visit."
       title="Reception dashboard"
     >
       <ReceptionBilling visits={readyVisits} />

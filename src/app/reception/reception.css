@@ -1,0 +1,86 @@
+/* Reception-only presentation; clinic operations keep their existing behavior. */
+.reception-workspace :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #2f80ed;
+  outline-offset: 3px;
+}
+
+.reception-workspace [data-ui="page-header"] {
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+}
+
+.reception-workspace [data-ui="page-header"] h2 { font-size: 1.875rem; }
+.reception-workspace [data-ui="page-header"] > p:last-child { margin-top: 8px; line-height: 1.6; }
+
+.reception-checkin :is(.text-slate-500, .text-slate-600) { color: #61758a; }
+.reception-checkin :is(.text-slate-950, .text-slate-700) { color: #071b33; }
+.reception-checkin :is(.border-slate-200, .border-slate-300) { border-color: #d8e4ec; }
+.reception-checkin .bg-slate-50 { background: #f7fafc; }
+.reception-checkin :is(input:not([type="radio"]), textarea) { width: 100%; min-width: 0; }
+.reception-checkin textarea { line-height: 1.65; }
+.reception-checkin input[type="radio"] { width: 16px; height: 16px; accent-color: #0b2a5b; }
+.reception-checkin :is(th, td) { padding-top: 14px; padding-bottom: 14px; }
+.reception-checkin td { vertical-align: middle; }
+
+.reception-queue-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 210px 144px;
+  align-items: center;
+  gap: 20px;
+}
+
+.reception-overview { display: flex; flex-direction: column; gap: 20px; }
+.reception-overview :is(article, [data-ui="activity"]) {
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgb(8 42 96 / 3%);
+}
+.reception-overview :is([data-ui="activity"], [data-ui="workflow"]) h3 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.reception-overview [data-ui="activity"] > div:last-child > article { padding: 16px; }
+.reception-overview [data-ui="activity"] article .shadow-sm { box-shadow: none; }
+.reception-overview [data-ui="currency-unit"] { font-size: 10px; }
+.reception-overview [data-ui="activity"] article > div:nth-child(2) > div {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.reception-overview [data-ui="workflow"] article > div > div {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+}
+.reception-overview [data-ui="workflow"] a { justify-content: center; }
+.reception-overview > section:first-child > article:nth-child(3) {
+  border-color: #cce8d8;
+  background: #f2fbf6;
+}
+.reception-overview > section:first-child > article:nth-child(3) > div > span {
+  color: #11703f;
+  background: #dcfce7;
+}
+
+.reception-workspace [data-ui="medicine-reference"] { border-radius: 20px; }
+.reception-workspace [data-ui="medicine-reference"] table { width: 100%; min-width: 780px; }
+.reception-workspace [data-ui="medicine-reference"] tbody tr { vertical-align: middle; }
+.reception-workspace [data-ui="medicine-reference"] :is(th, td) { padding-top: 16px; padding-bottom: 16px; }
+.reception-workspace [data-ui="medicine-reference"] th:nth-child(3),
+.reception-workspace [data-ui="medicine-reference"] th:nth-child(5),
+.reception-workspace [data-ui="medicine-reference"] :is([data-ui="stock-value"], [data-ui="price-value"]) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.reception-workspace [data-ui="medicine-reference"] td:nth-child(2) { min-width: 180px; }
+
+@media (min-width: 1280px) {
+  .reception-overview [data-ui="workflow"] { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reception-workspace * { transition-duration: 0s; scroll-behavior: auto; }
+}
