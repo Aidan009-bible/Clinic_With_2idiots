@@ -19,12 +19,18 @@ export async function POST(request: Request) {
     redirectTo: getRoleHome(user.role),
   });
 
-  response.cookies.set(getSessionCookieName(), encodeSession({
-    username: user.username,
-    role: user.role,
-  }), {
+  let signedSession: string;
+  try {
+    signedSession = encodeSession({ username: user.username, role: user.role });
+  } catch {
+    return NextResponse.json({ error: "Demo session configuration is missing." }, { status: 503 });
+  }
+
+  response.cookies.set(getSessionCookieName(), signedSession, {
     httpOnly: true,
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 8,
     path: "/",
   });
 

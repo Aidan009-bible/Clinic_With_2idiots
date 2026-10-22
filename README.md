@@ -1,49 +1,25 @@
-# Clinic_With_2idiots
+# Clinic System
 
-This project is now a working clinic demo with:
+A Next.js / TypeScript prototype for a small clinic's reception, doctor, and admin workflows. It shows patient registration, visit queues, prescriptions, billing, and medicine stock.
 
-- cookie-based demo authentication
-- role-based dashboards for `admin`, `doctor`, and `reception`
-- backend API routes for login, patient creation, visit updates, counter completion, and stock changes
-- Supabase-backed data for real testing
-- automatic local JSON fallback when Supabase tables are missing
+**[Try the public interactive demo](https://aidan-projects.nuttyoak11.chatgpt.site/demo/clinic.html).** The public demo is a browser-only simulation with synthetic data; it does not connect to this app or a patient database.
 
-## Default login
+## Run locally
 
-- `admin` / `admin123`
-- `doctor` / `doctor123`
-- `reception` / `reception123`
+1. Run `npm install`.
+2. Copy `.env.example` to `.env.local` and set `CLINIC_SESSION_SECRET` to a random value of at least 32 characters.
+3. Run `npm run dev` and open `http://localhost:3000`.
 
-## Supabase setup
+Demo accounts: `admin/admin123`, `doctor/doctor123`, `reception/reception123`. The app stores test changes in an ignored local JSON file at `data/clinic-store.json`.
 
-1. Copy `.env.example` to `.env.local`
-2. Add:
+## Important limits
 
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
+This is a learning prototype. The demo accounts are intentionally public. Do not deploy it with real patient information, use the sample passwords for a real clinic, or treat its role screens as production access control. Sessions are signed, but the app still needs proper user identity, authorization, audit trails, validated input, and durable protected storage before real use.
 
-3. In Supabase SQL Editor, rerun:
+The `supabase/` SQL is a reference prototype. Its tables have row level security enabled with no public policies. The current app uses local JSON; Supabase is not wired into these workflows. Review database policies and password storage before connecting any live project.
 
-- `supabase/schema.sql`
-- `supabase/seed.sql`
+## Roles
 
-Important:
-- this updated schema adds demo passwords plus visit diagnosis, notes, and prescription fields
-- row level security is disabled on these demo tables so the anon key can be used for testing
-- if Supabase is not ready, the app will store demo changes in `data/clinic-store.json`
-
-## Run
-
-```bash
-npm run dev
-```
-
-Then open `http://localhost:3000`.
-
-## What each role can test
-
-- `admin`: review demo users, see reports, adjust medicine stock
-- `reception`: register patients, create visits, complete prescriptions at counter
-- `doctor`: manage the waiting queue, diagnosis, notes, fees, and stock-based prescriptions
+- **Reception:** register patients, create visits, and complete billing.
+- **Doctor:** handle the queue, diagnosis, notes, and prescriptions.
+- **Admin:** view operations and manage medicine stock.

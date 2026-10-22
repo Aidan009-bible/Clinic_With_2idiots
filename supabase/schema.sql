@@ -56,8 +56,9 @@ alter table visits add column if not exists diagnosis text not null default '';
 alter table visits add column if not exists notes text not null default '';
 alter table visits add column if not exists prescription jsonb not null default '[]'::jsonb;
 
-alter table demo_users disable row level security;
-alter table patients disable row level security;
-alter table visits disable row level security;
-alter table medicines disable row level security;
-alter table reports_summary disable row level security;
+-- Closed by default. Define reviewed policies before connecting a real database.
+alter table demo_users enable row level security;
+alter table patients enable row level security;
+alter table visits enable row level security;
+alter table medicines enable row level security;
+alter table reports_summary enable row level security;
